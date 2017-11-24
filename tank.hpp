@@ -1,3 +1,5 @@
+#include <functional>
+#include <map>
 #include <utility>
 
 #define STEP 1
@@ -9,14 +11,16 @@ class Tank {
 public:
   Tank() {
     position = {0, 0};
+
+    actions = {
+      {'b', &Tank::move_backward },
+      {'f', &Tank::move_forward }
+    };
   }
 
   void execute(std::vector<char> commands) {
     for (const char command: commands) {
-      switch(command) {
-        case 'b': move_backward(); break;
-        case 'f': move_forward(); break;
-      }
+      actions[command](this);
     }
   }
 
@@ -32,5 +36,8 @@ private:
     position.Y += STEP;
   }
 
+  using Actions = std::map<char, std::function<void(Tank*)>>;
+
+  Actions actions;
   Position position;
 };
