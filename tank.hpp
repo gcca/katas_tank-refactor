@@ -1,11 +1,7 @@
 #include <functional>
 #include <map>
-#include <utility>
 
-#define STEP 1
-#define Y second
-
-using Position = std::pair<int, int>;
+#include "actions.hpp"
 
 class Tank {
 public:
@@ -13,14 +9,14 @@ public:
     position = {0, 0};
 
     actions = {
-      {'b', &Tank::move_backward },
-      {'f', &Tank::move_forward }
+      {'b', &backward },
+      {'f', &forward }
     };
   }
 
   void execute(std::vector<char> commands) {
     for (const char command: commands) {
-      actions[command](this);
+      position = actions[command]->execute(position);
     }
   }
 
@@ -28,16 +24,11 @@ public:
     return position;
   }
 private:
-  void move_backward() {
-    position.Y -= STEP;
-  }
-
-  void move_forward() {
-    position.Y += STEP;
-  }
-
-  using Actions = std::map<char, std::function<void(Tank*)>>;
+  using Actions = std::map<char, Action*>;
 
   Actions actions;
   Position position;
+
+  Backward backward;
+  Forward forward;
 };
