@@ -30,14 +30,7 @@ class Left:
     return position
 
   def turn(self, direction):
-    if direction is 'N':
-      return 'W'
-    elif direction is 'W':
-      return 'S'
-    elif direction is 'S':
-      return 'E'
-    elif direction is 'E':
-      return 'N'
+    return direction.left()
 
 
 class Right:
@@ -45,11 +38,4 @@ class Right:
     return position
 
   def turn(self, direction):
-    if direction is 'N':
-      return 'E'
-    elif direction is 'E':
-      return 'S'
-    elif direction is 'S':
-      return 'W'
-    elif direction is 'W':
-      return 'N'
+    return direction.right()

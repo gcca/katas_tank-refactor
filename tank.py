@@ -1,9 +1,10 @@
 from actions import Backward, Forward, Left, Right
+from directions import North
 
 
 class Tank:
 
-  DEFAULT_DIRECTION = 'N'
+  DEFAULT_DIRECTION = North()
   DEFAULT_POSITION = (0, 0)
 
   def __init__(self):
@@ -23,7 +24,7 @@ class Tank:
       self.position = action.move(self.position)
 
   def where_am_i_going(self):
-    return self.direction
+    return str(self.direction)
 
   def where_i_am(self):
     return self.position
