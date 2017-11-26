@@ -1,12 +1,13 @@
 from actions import Backward, Forward, Left, Right
 from directions import North
+from modes import Normal, Turbo
 
 
 class Tank:
 
   DEFAULT_DIRECTION = North()
   DEFAULT_POSITION = (0, 0)
-  DEFAULT_MODE = 'normal'
+  DEFAULT_MODE = Normal()
 
   def __init__(self):
     self.direction = Tank.DEFAULT_DIRECTION
@@ -26,7 +27,7 @@ class Tank:
       self.position = action.move(self.position, self.mode)
 
   def turbo(self):
-    self.mode = 'turbo'
+    self.mode = Turbo()
 
   def where_am_i_going(self):
     return str(self.direction)

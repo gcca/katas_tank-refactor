@@ -1,4 +1,3 @@
-STEP = 1
 X = 0
 Y = 1
 
@@ -9,13 +8,9 @@ def _move(position, step):
   return (x, y)
 
 
-def _step(mode):
-    return 2 * STEP if mode is 'turbo' else STEP
-
-
 class Backward:
   def move(self, position, mode):
-    return _move(position, -_step(mode))
+    return _move(position, -mode.step())
 
   def turn(self, direction):
     return direction
@@ -23,7 +18,7 @@ class Backward:
 
 class Forward:
   def move(self, position, mode):
-    return _move(position, +_step(mode))
+    return _move(position, +mode.step())
 
   def turn(self, direction):
     return direction
