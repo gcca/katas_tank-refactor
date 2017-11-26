@@ -6,8 +6,9 @@
 class Tank {
 public:
   Tank() {
-    direction = 'N';
     position = {0, 0};
+
+    direction = north;
 
     actions = {
       {'b', &backward },
@@ -30,13 +31,13 @@ public:
   }
 
   char where_am_i_going() {
-    return direction;
+    return *direction;
   }
 private:
   using Actions = std::map<char, Action*>;
 
   Actions actions;
-  char direction;
+  Direction *direction;
   Position position;
 
   Backward backward;

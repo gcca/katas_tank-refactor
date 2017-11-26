@@ -1,5 +1,7 @@
 #include <utility>
 
+#include "directions.hpp"
+
 using Position = std::pair<int, int>;
 
 #define STEP 1
@@ -8,7 +10,7 @@ using Position = std::pair<int, int>;
 class Action {
 public:
   virtual Position move(Position&) = 0;
-  virtual char turn(char &direction) = 0;
+  virtual Direction *turn(Direction *direction) = 0;
 };
 
 class Backward : public Action {
@@ -19,7 +21,7 @@ public:
     return new_position;
   }
 
-  char turn(char &direction) {
+  Direction *turn(Direction *direction) {
     return direction;
   }
 };
@@ -32,7 +34,7 @@ public:
     return new_position;
   }
 
-  char turn(char &direction) {
+  Direction *turn(Direction *direction) {
     return direction;
   }
 };
@@ -43,14 +45,8 @@ public:
     return position;
   }
 
-  char turn(char &direction) {
-    switch(direction) {
-      case 'N': return 'W';
-      case 'W': return 'S';
-      case 'S': return 'E';
-      case 'E': return 'N';
-      default: return NULL;
-    }
+  Direction *turn(Direction *direction) {
+    return direction->left();
   }
 };
 
@@ -60,13 +56,7 @@ public:
     return position;
   }
 
-  char turn(char &direction) {
-    switch(direction) {
-      case 'N': return 'E';
-      case 'E': return 'S';
-      case 'S': return 'W';
-      case 'W': return 'N';
-      default: return NULL;
-    }
+  Direction *turn(Direction *direction) {
+    return direction->right();
   }
 };
