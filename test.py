@@ -41,3 +41,15 @@ class TankOrdersTestCase(unittest.TestCase):
     EAST = 'E'
     self.tank.execute(['r'])
     self.assertEqual(self.tank.where_am_i_going(), EAST)
+
+
+class TankTurboTestCase(unittest.TestCase):
+
+  def setUp(self):
+    self.tank = Tank()
+
+  def test_turbo(self):
+    TWO_STEPS_TO_NORTH = (0, 2)
+    self.tank.turbo()
+    self.tank.execute(['f'])
+    self.assertEqual(self.tank.where_i_am(), TWO_STEPS_TO_NORTH)
