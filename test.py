@@ -12,6 +12,10 @@ class TankDefaultsTestCase(unittest.TestCase):
     DEFAULT_POSITION = (0, 0)
     self.assertEqual(self.tank.where_i_am(), DEFAULT_POSITION)
 
+  def test_direction(self):
+    DEFAULT_DIRECTION = 'N'
+    self.assertEqual(self.tank.where_am_i_going(), DEFAULT_DIRECTION)
+
 
 class TankOrdersTestCase(unittest.TestCase):
 
@@ -27,3 +31,13 @@ class TankOrdersTestCase(unittest.TestCase):
     ONE_STEP_FORWARD = (0, 1)
     self.tank.execute(['f'])
     self.assertEqual(self.tank.where_i_am(), ONE_STEP_FORWARD)
+
+  def test_left(self):
+    WEST = 'W'
+    self.tank.execute(['l'])
+    self.assertEqual(self.tank.where_am_i_going(), WEST)
+
+  def test_left(self):
+    EAST = 'E'
+    self.tank.execute(['r'])
+    self.assertEqual(self.tank.where_am_i_going(), EAST)
