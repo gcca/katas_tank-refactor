@@ -8,13 +8,14 @@ class Tank:
 
   def __init__(self):
     self.position = Tank.DEFAULT_POSITION
+    self.actions = {
+      'b': self.__backward,
+      'f': self.__forward,
+    }
 
   def execute(self, orders):
     for order in orders:
-      if order == 'b':
-        self.__backward()
-      elif order == 'f':
-        self.__forward()
+      self.actions[order]()
 
   def where_i_am(self):
     return self.position
