@@ -1,15 +1,16 @@
 import { Action, Position } from './actions';
 import { Backward, Forward, Left, Right } from './actions';
 import { Direction, North } from './directions';
+import { Mode, Normal, Turbo } from './modes';
 
 export class Tank {
 
   private static DEFAULT_DIRECTION = new North();
-  private static DEFAULT_MODE = 'normal';
+  private static DEFAULT_MODE = new Normal();
   private static DEFAULT_POSITION = [0, 0] as Position;
 
   private direction: Direction;
-  private mode: string;
+  private mode: Mode;
   private position: Position;
 
   private actions: {[order: string]: Action};
@@ -36,7 +37,7 @@ export class Tank {
   }
 
   public turbo(): void {
-    this.mode = 'turbo';
+    this.mode = new Turbo();
   }
 
   public where_am_i_going(): string {

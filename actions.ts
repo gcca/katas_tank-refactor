@@ -1,8 +1,8 @@
 import { Direction } from './directions';
+import { Mode } from './modes';
 
 export type Position = [number, number];
 
-const STEP = 1;
 const Y = 1;
 
 function _move(position: Position, step: number): Position {
@@ -11,18 +11,14 @@ function _move(position: Position, step: number): Position {
   return newPosition;
 }
 
-function step(mode: string): number {
-  return mode == 'turbo' ? 2 * STEP : STEP;
-}
-
 export interface Action {
-  move(position: Position, mode: string): Position;
+  move(position: Position, mode: Mode): Position;
   turn(direction: Direction): Direction;
 }
 
 export class Backward implements Action {
-  public move(position: Position, mode: string): Position {
-    return _move(position, -step(mode));
+  public move(position: Position, mode: Mode): Position {
+    return _move(position, -mode.step());
   }
 
   public turn(direction: Direction): Direction {
@@ -31,8 +27,8 @@ export class Backward implements Action {
 }
 
 export class Forward implements Action {
-  public move(position: Position, mode: string): Position {
-    return _move(position, step(mode));
+  public move(position: Position, mode: Mode): Position {
+    return _move(position, mode.step());
   }
 
   public turn(direction: Direction): Direction {
@@ -41,7 +37,7 @@ export class Forward implements Action {
 }
 
 export class Left implements Action {
-  public move(position: Position, mode: string): Position {
+  public move(position: Position, mode: Mode): Position {
     return position;
   }
 
@@ -51,7 +47,7 @@ export class Left implements Action {
 }
 
 export class Right implements Action {
-  public move(position: Position, mode: string): Position {
+  public move(position: Position, mode: Mode): Position {
     return position;
   }
 
