@@ -1,3 +1,5 @@
+import { Direction } from './directions';
+
 export type Position = [number, number];
 
 const STEP = 1;
@@ -39,13 +41,8 @@ export class Left implements Action {
     return position;
   }
 
-  public turn(direction: string): string {
-    switch (direction) {
-      case 'N': return 'W';
-      case 'W': return 'S';
-      case 'S': return 'E';
-      case 'E': return 'N';
-    }
+  public turn(direction: Direction): Direction {
+    return direction.left();
   }
 }
 
@@ -54,12 +51,7 @@ export class Right implements Action {
     return position;
   }
 
-  public turn(direction: string): string {
-    switch (direction) {
-      case 'N': return 'E';
-      case 'E': return 'S';
-      case 'S': return 'W';
-      case 'W': return 'N';
-    }
+  public turn(direction: Direction): Direction {
+    return direction.right();
   }
 }

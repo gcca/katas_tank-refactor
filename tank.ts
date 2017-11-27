@@ -1,9 +1,10 @@
 import { Action, Position } from './actions';
 import { Backward, Forward, Left, Right } from './actions';
+import { North } from './directions';
 
 export class Tank {
 
-  private static DEFAULT_DIRECTION = 'N';
+  private static DEFAULT_DIRECTION = new North();
   private static DEFAULT_POSITION = [0, 0] as Position;
 
   private direction: string;
@@ -32,7 +33,7 @@ export class Tank {
   }
 
   public where_am_i_going(): string {
-    return this.direction;
+    return this.direction.toString();
   }
 
   public where_i_am(): Position {
