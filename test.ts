@@ -8,10 +8,15 @@ describe('Tank', () => {
   });
 
   describe('when start', () => {
+    const DEFAULT_DIRECTION = 'N';
     const DEFAULT_POSITION = [0, 0];
 
     it('should be at (0, 0)', () => {
       expect(tank.where_i_am()).to.deep.equal(DEFAULT_POSITION);
+    });
+
+    it('should go to north', () => {
+      expect(tank.where_am_i_going()).to.equal(DEFAULT_DIRECTION);
     });
   });
 
@@ -22,7 +27,7 @@ describe('Tank', () => {
         tank.execute(['b']);
         expect(tank.where_i_am()).to.deep.equal(ONE_BACKWARD_STEP);
       });
-    })
+    });
 
     describe('\'f\'', () => {
       it('should move one forward step', () => {
@@ -30,6 +35,22 @@ describe('Tank', () => {
         tank.execute(['f']);
         expect(tank.where_i_am()).to.deep.equal(ONE_FORWARD_STEP);
       });
-    })
+    });
+
+    describe('\'l\'', () => {
+      it('should turn left to west', () => {
+        const WEST = 'W';
+        tank.execute(['l']);
+        expect(tank.where_am_i_going()).to.equal(WEST);
+      });
+    });
+
+    describe('\'r\'', () => {
+      it('should turn right to east', () => {
+        const EAST = 'E';
+        tank.execute(['r']);
+        expect(tank.where_am_i_going()).to.equal(EAST);
+      });
+    });
   });
 });
