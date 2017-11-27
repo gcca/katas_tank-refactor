@@ -1,40 +1,31 @@
-type Position = [number, number];
+import { Action, Position } from './actions';
+import { Backward, Forward } from './actions';
 
 export class Tank {
-
-  private static STEP = 1;
-  private static Y = 1;
 
   private static DEFAULT_POSITION = [0, 0] as Position;
 
   private position: Position;
 
-  private actions: {[order: string]: () => void};
+  private actions: {[order: string]: Action};
 
   constructor() {
     this.position = Tank.DEFAULT_POSITION.slice() as Position;
 
     this.actions = {
-      'b': () => this.backward(),
-      'f': () => this.forward(),
+      'b': new Backward(),
+      'f': new Forward(),
     };
   }
 
   public execute(orders: string[]): void {
     for (const order of orders) {
-      this.actions[order]();
+      const action = this.actions[order];
+      this.position = action.move(this.position);
     }
   }
 
   public where_i_am(): Position {
     return this.position;
-  }
-
-  private backward(): void {
-    this.position[Tank.Y] -= Tank.STEP;
-  }
-
-  private forward(): void {
-    this.position[Tank.Y] += Tank.STEP;
   }
 }
