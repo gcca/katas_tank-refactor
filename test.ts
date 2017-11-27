@@ -53,4 +53,16 @@ describe('Tank', () => {
       });
     });
   });
+
+  describe('when move forward with turbo mode', () => {
+    beforeEach(() => {
+      tank.turbo();
+      tank.execute(['f']);
+    });
+
+    it('should go two steps to north', () => {
+      const TWO_STEPS_TO_NORTH = [0, 2];
+      expect(tank.where_i_am()).to.deep.equal(TWO_STEPS_TO_NORTH);
+    });
+  });
 });

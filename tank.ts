@@ -1,19 +1,22 @@
 import { Action, Position } from './actions';
 import { Backward, Forward, Left, Right } from './actions';
-import { North } from './directions';
+import { Direction, North } from './directions';
 
 export class Tank {
 
   private static DEFAULT_DIRECTION = new North();
+  private static DEFAULT_MODE = 'normal';
   private static DEFAULT_POSITION = [0, 0] as Position;
 
-  private direction: string;
+  private direction: Direction;
+  private mode: string;
   private position: Position;
 
   private actions: {[order: string]: Action};
 
   constructor() {
     this.direction = Tank.DEFAULT_DIRECTION;
+    this.mode = Tank.DEFAULT_MODE;
     this.position = Tank.DEFAULT_POSITION.slice() as Position;
 
     this.actions = {
@@ -28,8 +31,12 @@ export class Tank {
     for (const order of orders) {
       const action = this.actions[order];
       this.direction = action.turn(this.direction);
-      this.position = action.move(this.position);
+      this.position = action.move(this.position, this.mode);
     }
+  }
+
+  public turbo(): void {
+    this.mode = 'turbo';
   }
 
   public where_am_i_going(): string {

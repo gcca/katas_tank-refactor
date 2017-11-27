@@ -11,33 +11,37 @@ function _move(position: Position, step: number): Position {
   return newPosition;
 }
 
+function step(mode: string): number {
+  return mode == 'turbo' ? 2 * STEP : STEP;
+}
+
 export interface Action {
-  move(position: Position): Position;
-  turn(direction: string): string;
+  move(position: Position, mode: string): Position;
+  turn(direction: Direction): Direction;
 }
 
 export class Backward implements Action {
-  public move(position: Position): Position {
-    return _move(position, -STEP);
+  public move(position: Position, mode: string): Position {
+    return _move(position, -step(mode));
   }
 
-  public turn(direction: string): string {
+  public turn(direction: Direction): Direction {
     return direction;
   }
 }
 
 export class Forward implements Action {
-  public move(position: Position): Position {
-    return _move(position, STEP);
+  public move(position: Position, mode: string): Position {
+    return _move(position, step(mode));
   }
 
-  public turn(direction: string): string {
+  public turn(direction: Direction): Direction {
     return direction;
   }
 }
 
 export class Left implements Action {
-  public move(position: Position): Position {
+  public move(position: Position, mode: string): Position {
     return position;
   }
 
@@ -47,7 +51,7 @@ export class Left implements Action {
 }
 
 export class Right implements Action {
-  public move(position: Position): Position {
+  public move(position: Position, mode: string): Position {
     return position;
   }
 
